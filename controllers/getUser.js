@@ -1,5 +1,5 @@
 const users = require('../model/userRegister');
-const getId = require('./userLogin');
+const getId = require('./login');
 const getUsers = async(req,res)=>{
     try{
         // let response = await users.find({});

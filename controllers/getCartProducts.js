@@ -1,5 +1,5 @@
 const products = require("../model/allProducts");
-const getCart = require("./getCart");
+const getCart = require("./cart");
 
 const getCartProducts = async (req, res) => {
   console.log('///////////////////////////////////////////////////////////////////////////////////////////');
