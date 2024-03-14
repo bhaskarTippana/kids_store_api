@@ -13,7 +13,7 @@ const secretKey = process.env.SECRET_KEY;
           .send({ auth: false, message: "Invalid token" });
       } else {
         req.user = decode;
-        console.log("user-verified !")
+        // console.log("user-verified !")
         next();
       }
     });
