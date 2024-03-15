@@ -19,6 +19,7 @@ const userSchema = mongoose.Schema({
   },
   cart: [],
   wishlist: [],
+  buyCart:[]
 });
 
 const User = mongoose.model('users',userSchema) 

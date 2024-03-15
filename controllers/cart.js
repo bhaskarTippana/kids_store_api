@@ -52,6 +52,19 @@ const getCart = async (req, res) => {
         );
         await foundUser.save();
         return res.status(200).json(foundUser);
+      case "ADD_QUANTITY":
+        foundUser.buyCart.push(product);
+        await foundUser.save();
+        return res.status(200).json(foundUser);
+        case "DELETE_QUANTITY":
+          // Assuming product has an _id property
+          const indexToRemove = foundUser.buyCart.findIndex(item => item._id === product._id);
+          if (indexToRemove !== -1) {
+            foundUser.buyCart.splice(indexToRemove, 1);
+          }
+          await foundUser.save();
+          return res.status(200).json(foundUser);
+        
       default:
         return res.status(200).json(foundUser);
     }
