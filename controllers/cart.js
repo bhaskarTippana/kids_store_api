@@ -1,10 +1,13 @@
 const users = require("../model/userRegister");
 const getCart = async (req, res) => {
+  
   try {
     let action = req.body.action;
     let product = req.body.product;
     let userId = req.user.userId;
+    console.log(userId,"userId");
     let foundUser = await users.findOne({ _id: userId });
+    console.log(foundUser, "foundUser");
     switch (action) {
       case "ADD_CART":
         if (foundUser.cart.length === 0) {
@@ -53,8 +56,11 @@ const getCart = async (req, res) => {
         await foundUser.save();
         return res.status(200).json(foundUser);
       case "ADD_QUANTITY":
+        console.log("going=====");
+        console.log(foundUser,"====user=====");
         foundUser.buyCart.push(product);
         await foundUser.save();
+        console.log("saved...");
         return res.status(200).json(foundUser);
         case "DELETE_QUANTITY":
           // Assuming product has an _id property
