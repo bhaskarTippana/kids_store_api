@@ -29,7 +29,29 @@ const getCart = async (req, res) => {
         );
         await foundUser.save();
         return res.status(200).json(foundUser);
-
+      case "ADD_WISHLIST":
+        if (foundUser.wishlist.length === 0) {
+          foundUser.wishlist.push(product);
+          await foundUser.save();
+          return res.status(200).json(foundUser);
+        } else {
+          for (let i of foundUser.wishlist) {
+            if (i._id === product._id) {
+              return res
+                .status(400)
+                .json({ message: "Product already in wishlist" });
+            }
+          }
+          foundUser.wishlist.push(product);
+          await foundUser.save();
+          return res.status(200).json(foundUser);
+        }
+      case "DELETE_WISHLIST":
+        foundUser.wishlist = foundUser.wishlist.filter(
+          (item) => item._id !== product._id
+        );
+        await foundUser.save();
+        return res.status(200).json(foundUser);
       default:
         return res.status(200).json(foundUser);
     }
