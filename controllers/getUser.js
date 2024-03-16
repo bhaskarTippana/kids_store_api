@@ -11,7 +11,7 @@ const getUsers = async(req,res)=>{
            let {firstName,email,_id,cart,wishlist,buyCart} = response;
            res
              .status(200)
-             .json({ firstName, email, _id, cart, wishlist, buyCart });
+             .json({ firstName, email, _id, cart, wishlist, buyCart,buyProductsCart });
          }else{
             res.status(400).json({message:"token Invalid"})
          }

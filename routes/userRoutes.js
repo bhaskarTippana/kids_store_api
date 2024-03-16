@@ -4,6 +4,7 @@ const register = require("../controllers/register.js");
 const login = require("../controllers/login.js");
 const getUsers = require("../controllers/getUser.js")
 const cart = require("../controllers/cart.js");
+const buyCart = require("../controllers/buyCart.js")
 const addCart = require("../controllers/addCart.js");
 const getCartProducts = require("../controllers/getCartProducts.js");
 const cartLength = require("../controllers/CartLength.js");
@@ -21,7 +22,7 @@ userRouter.get("/users",isAuthenticate,getUsers);
 
 userRouter.post("/cart",isAuthenticate,cart);
 
-
+userRouter.post("/buyCart",isAuthenticate,buyCart);
 
 
 // userRouter.post('/cart/:pid',isAuthenticate,addCart);
