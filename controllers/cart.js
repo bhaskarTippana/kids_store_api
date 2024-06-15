@@ -19,12 +19,56 @@ const getCart = async (req, res) => {
         }
         await foundUser.save();
         return res.status(200).json(foundUser);
+
       case "DELETE_CART":
         foundUser.cart = foundUser.cart.filter(
           (item) => item._id !== product._id
         );
         await foundUser.save();
         return res.status(200).json(foundUser);
+
+      case "INCREMENT_QUANTITY":
+        const itemToUpdate = foundUser.cart.find(
+          (item) => item._id === product._id
+        );
+        if (itemToUpdate) {
+          const updatedCart = foundUser.cart.map((item) =>
+            item._id === product._id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+          foundUser.cart = updatedCart;
+          await foundUser.save();
+
+          return res.status(200).json(foundUser);
+        } else {
+          return res.status(404).json({ message: "Item not found in cart" });
+        }
+
+      case "DECREMENT_QUANTITY":
+        const itemToDecrement = foundUser.cart.find(
+          (item) => item._id === product._id
+        );
+        if (itemToDecrement) {
+          if (itemToDecrement.quantity > 1) {
+            const updatedCart = foundUser.cart.map((item) =>
+              item._id === product._id
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            );
+            foundUser.cart = updatedCart;
+          } else {
+            foundUser.cart = foundUser.cart.filter(
+              (item) => item._id !== product._id
+            );
+          }
+          await foundUser.save();
+
+          return res.status(200).json(foundUser);
+        } else {
+          return res.status(404).json({ message: "Item not found in cart" });
+        }
+
       case "ADD_WISHLIST":
         if (foundUser.wishlist.length === 0) {
           foundUser.wishlist.push(product);

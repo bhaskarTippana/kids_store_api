@@ -17,14 +17,17 @@ const buyProductsCart = async (req, res) => {
     switch (action) {
       case "SINGLE_PRODUCT_ADD":
         foundUser.buyCart.push(product);
+        foundUser.buyProductsCart = [];
         await foundUser.save();
         return res.status(200).json(foundUser);
-
       case "SINGLE_PRODUCT_REMOVE":
         foundUser.buyCart.pop(product);
         await foundUser.save();
         return res.status(200).json(foundUser);
-
+      case "EMPTY_CART":
+        foundUser.buyCart = [];
+        await foundUser.save();
+        return res.status(200).json(foundUser);
       case "MULTI_PRODUCTS":
         foundUser.cart.forEach((item) => {
           const occurrences =
@@ -45,3 +48,5 @@ const buyProductsCart = async (req, res) => {
 };
 
 module.exports = buyProductsCart;
+
+
