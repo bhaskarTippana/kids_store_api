@@ -39,7 +39,7 @@ userRouter.post("/checkout-session", async (req, res) => {
           },
           unit_amount: parseInt(product.price.replace('$', '')) * 100,
         },
-        quantity: product.quantity,
+        quantity: product.quantity || 1,
       }));
 
       const session = await stripe.checkout.sessions.create({
@@ -57,10 +57,5 @@ userRouter.post("/checkout-session", async (req, res) => {
     }
   });
 
-// userRouter.post('/cart/:pid',isAuthenticate,addCart);
-// userRouter.post('/products/:id',isAuthenticate,getCartProducts);
-// userRouter.post('/cartLength',isAuthenticate,cartLength);
-// userRouter.post('/wishlist',isAuthenticate,addWishlist);
-// userRouter.post('/wishlistproducts',isAuthenticate,getWishlist);
 
 module.exports = userRouter;
