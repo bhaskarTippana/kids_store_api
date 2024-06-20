@@ -1,12 +1,13 @@
 const users = require("../model/userRegister");
+const { v4: uuidv4 } = require("uuid");
 const getCart = async (req, res) => {
   try {
     let action = req.body.action;
     let product = req.body.product;
     let userId = req.user.userId;
-    console.log(userId, "userId");
+    
     let foundUser = await users.findOne({ _id: userId });
-    console.log(foundUser, "foundUser");
+  
     switch (action) {
       case "ADD_CART":
         let cartProduct = foundUser.cart.find(
@@ -92,6 +93,22 @@ const getCart = async (req, res) => {
         );
         await foundUser.save();
         return res.status(200).json(foundUser);
+
+      case "MY_ORDER_LIST":
+       
+
+        const orderWithUniqueId = {
+          id: uuidv4(),
+          items: product,
+        };
+
+        foundUser.buyCart = [];
+        foundUser.buyProductsCart = [];
+        foundUser.myOrders = [...foundUser.myOrders, orderWithUniqueId];
+
+        await foundUser.save();
+        return res.status(200).json(foundUser);
+
       case "EMPTY_BUYCART":
         foundUser.buyCart = [];
         await foundUser.save();

@@ -8,11 +8,9 @@ function isAuthenticate(req, res, next) {
 
   if (token) {
     jwt.verify(token, secretKey, (err, decode) => {
-      console.log(err,'ttttttttttttttterrrrrr');
       if (err) return res.status(401).send(err);
       else {
         req.user = decode;
-        console.log("user-verified !")
         next();
       }
     });

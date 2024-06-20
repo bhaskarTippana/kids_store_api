@@ -15,7 +15,7 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ message: "Invalid  password" });
     }
     const token = createToken(user._id);
-    res.status(200).json({ token,exp:"7d" });
+    res.status(200).json({ token });
 
   } catch (error) {
     console.error(error);

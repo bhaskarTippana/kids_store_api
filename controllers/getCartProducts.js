@@ -2,11 +2,11 @@ const products = require("../model/allProducts");
 const getCart = require("./cart");
 
 const getCartProducts = async (req, res) => {
-  console.log('///////////////////////////////////////////////////////////////////////////////////////////');
+ 
   try {
     const { id } = req.params;
     const user = await getCart(req, res);
-    console.log(user,'userrrrrrrrrrr');
+   
     const productsArr = user.cart;
     const productObjArr = [];
     for (let i = 0; i < productsArr.length; i++) {

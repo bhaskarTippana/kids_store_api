@@ -8,11 +8,16 @@ const products = require("./model/allProducts.js");
 const categories = require("./model/categories.js");
 const titles = require("./model/titles.js");
 const userRouter = require("./routes/userRoutes.js");
+const logger  = require("./middleware/logger.js");
 const app = express();
 dotEnv.config();
 app.use(bodyParser.json());
 
 app.use(cors());
+
+console.log(logger,'logger');
+
+app.use(logger);
 
 // DB Connection
 mongoose

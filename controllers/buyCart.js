@@ -4,7 +4,7 @@ const buyProductsCart = async (req, res) => {
   try {
     const { action, product } = req.body;
     const userId = req.user.userId;
-    console.log(userId, "userId");
+
 
     // Find the user by userId
     const foundUser = await users.findOne({ _id: userId });
@@ -12,7 +12,7 @@ const buyProductsCart = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    console.log(foundUser);
+  
 
     switch (action) {
       case "SINGLE_PRODUCT_ADD":
