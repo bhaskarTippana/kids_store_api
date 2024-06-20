@@ -48,8 +48,8 @@ userRouter.post("/checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: "https://kids-store-api.onrender.comkids-store/payment-success",
-      cancel_url: "https://kids-store-api.onrender.comkids-store/payment-cancel",
+      success_url: "http://localhost:5173/payment-success",
+      cancel_url: "http://localhost:5173/payment-cancel",
     });
 
     res.json({ id: session.id });
